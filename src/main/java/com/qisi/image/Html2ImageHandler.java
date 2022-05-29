@@ -7,7 +7,6 @@ import gui.ava.html.link.LinkInfo;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;

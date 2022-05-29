@@ -1,14 +1,14 @@
 package com.qisi.image;
 
 import gui.ava.html.image.generator.HtmlImageGenerator;
-import gui.ava.html.image.util.SynchronousHTMLEditorKit;
+import org.fit.cssbox.demo.ImageRenderer;
+import org.fit.cssbox.layout.Dimension;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 import org.xhtmlrenderer.swing.AWTFontResolver;
 import org.xhtmlrenderer.swing.Java2DRenderer;
 import org.xhtmlrenderer.util.FSImageWriter;
+import org.xml.sax.SAXException;
 
-import javax.swing.text.EditorKit;
 import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 import javax.swing.text.html.HTMLDocument;
@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -55,8 +56,9 @@ public class Html2ImageUtil {
 
     public static void main(String[] args) throws Exception{
 //        html2Image(html);
-//        xhtmlrenderer(html);
+        xhtmlrenderer(html);
 //        html2ImageCustomer(html);
+//        cssBox(html);
     }
 
     public static void html2Image(String html) {
@@ -96,5 +98,23 @@ public class Html2ImageUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 这个我没有深入研究，包括字体啊，样式啊，大小
+     * @param html
+     * @throws IOException
+     */
+    public static void cssBox(String html) throws IOException {
+        ImageRenderer render = new ImageRenderer();
+        String url = Html2ImageUtil.class.getResource("/template.html").toString();
+        FileOutputStream out = new FileOutputStream(path+File.separator+"cssBox" + UUID.randomUUID() + ".png");
+        render.setWindowSize(new Dimension(1980,1000), false);
+        try {
+            render.renderURL(url, out);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        out.close();
     }
 }
